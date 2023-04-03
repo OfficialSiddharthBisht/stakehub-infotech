@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const { default: mongoose, Schema } = require("mongoose");
 const app = express();
+const Orders = require("./models/orderModel");
 
 
 // config
@@ -17,18 +18,10 @@ const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 })
 
-let orders = [
-  { buyerQty: 10, buyerPrice: 99, sellerPrice: 100, sellerQty: 20 },
-  { buyerQty: 50, buyerPrice: 98, sellerPrice: 101, sellerQty: 20 },
-  { buyerQty: 70, buyerPrice: 97, sellerPrice: 102, sellerQty: 130 },
-  { buyerQty: 80, buyerPrice: 96, sellerPrice: 103, sellerQty: 150 },
-  { buyerQty: 10, buyerPrice: 96, sellerPrice: 104, sellerQty: 70 },
-];
-
-
-
-
-orders.sort(function (a, b) {
+stakehub();
+async function stakehub(){
+  let orders = await Orders.find();
+  orders.sort(function (a, b) {
   if (a.buyerPrice < b.sellerPrice) {
     return -1;
   }
@@ -81,3 +74,18 @@ for (let i = 0; i < orders.length; i++) {
 }
 console.log("Orders",orders);
 console.log("completed orders",completedOrders);
+}
+
+
+// let orders = [
+//   { buyerQty: 10, buyerPrice: 99, sellerPrice: 100, sellerQty: 20 },
+//   { buyerQty: 50, buyerPrice: 98, sellerPrice: 101, sellerQty: 20 },
+//   { buyerQty: 70, buyerPrice: 97, sellerPrice: 102, sellerQty: 130 },
+//   { buyerQty: 80, buyerPrice: 96, sellerPrice: 103, sellerQty: 150 },
+//   { buyerQty: 10, buyerPrice: 96, sellerPrice: 104, sellerQty: 70 },
+// ];
+
+
+
+
+
