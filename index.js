@@ -4,6 +4,8 @@ const express = require("express");
 const { default: mongoose, Schema } = require("mongoose");
 const app = express();
 const Orders = require("./models/orderModel");
+const completedOrdersSchema = require("./models/completedOrderModel");
+
 
 
 // config
@@ -72,8 +74,12 @@ for (let i = 0; i < orders.length; i++) {
     }
   }
 }
-console.log("Orders",orders);
-console.log("completed orders",completedOrders);
+// console.log("Orders",orders);
+
+await completedOrdersSchema.create(completedOrders)
+let temp = await completedOrdersSchema.find();
+console.log("completed orders",temp);
+// console.log("completed orders",completedOrders);
 }
 
 
