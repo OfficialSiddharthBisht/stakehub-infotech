@@ -1,3 +1,22 @@
+const connectDatabase = require("./config/database");
+const dotenv = require("dotenv");
+const express = require("express");
+const { default: mongoose, Schema } = require("mongoose");
+const app = express();
+
+
+// config
+dotenv.config({ path: "./config/config.env" });
+const port = process.env.PORT || 3005;
+
+// Connect Database
+connectDatabase();
+
+const server = app.listen(port, () => {
+  console.log();
+  console.log(`Server is running on port ${port}`);
+})
+
 let orders = [
   { buyerQty: 10, buyerPrice: 99, sellerPrice: 100, sellerQty: 20 },
   { buyerQty: 50, buyerPrice: 98, sellerPrice: 101, sellerQty: 20 },
@@ -5,6 +24,9 @@ let orders = [
   { buyerQty: 80, buyerPrice: 96, sellerPrice: 103, sellerQty: 150 },
   { buyerQty: 10, buyerPrice: 96, sellerPrice: 104, sellerQty: 70 },
 ];
+
+
+
 
 orders.sort(function (a, b) {
   if (a.buyerPrice < b.sellerPrice) {
